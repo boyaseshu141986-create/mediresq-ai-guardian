@@ -14,6 +14,8 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as NetworkRouteImport } from './routes/network'
 import { Route as PredictionsRouteImport } from './routes/predictions'
+import { Route as SuppliersRouteImport } from './routes/suppliers'
+import { Route as TransfersRouteImport } from './routes/transfers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +42,16 @@ const PredictionsRoute = PredictionsRouteImport.update({
   path: '/predictions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuppliersRoute = SuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransfersRoute = TransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/suppliers': typeof SuppliersRoute
+  '/transfers': typeof TransfersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/suppliers': typeof SuppliersRoute
+  '/transfers': typeof TransfersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,14 +78,37 @@ export interface FileRoutesById {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/suppliers': typeof SuppliersRoute
+  '/transfers': typeof TransfersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/inventory' | '/network' | '/predictions'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/inventory'
+    | '/network'
+    | '/predictions'
+    | '/suppliers'
+    | '/transfers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/inventory' | '/network' | '/predictions'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/inventory'
+    | '/network'
+    | '/predictions'
+    | '/suppliers'
+    | '/transfers'
   id:
-    '__root__' | '/' | '/dashboard' | '/inventory' | '/network' | '/predictions'
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/inventory'
+    | '/network'
+    | '/predictions'
+    | '/suppliers'
+    | '/transfers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,6 +117,8 @@ export interface RootRouteChildren {
   InventoryRoute: typeof InventoryRoute
   NetworkRoute: typeof NetworkRoute
   PredictionsRoute: typeof PredictionsRoute
+  SuppliersRoute: typeof SuppliersRoute
+  TransfersRoute: typeof TransfersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -117,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PredictionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/suppliers': {
+      id: '/suppliers'
+      path: '/suppliers'
+      fullPath: '/suppliers'
+      preLoaderRoute: typeof SuppliersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfers': {
+      id: '/transfers'
+      path: '/transfers'
+      fullPath: '/transfers'
+      preLoaderRoute: typeof TransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -126,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   InventoryRoute: InventoryRoute,
   NetworkRoute: NetworkRoute,
   PredictionsRoute: PredictionsRoute,
+  SuppliersRoute: SuppliersRoute,
+  TransfersRoute: TransfersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
