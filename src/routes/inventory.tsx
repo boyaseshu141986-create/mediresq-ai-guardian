@@ -268,7 +268,10 @@ function InventoryPage() {
                             const donor = items
                               .filter((x) => x.medicineId === i.medicineId && x.id !== i.id)
                               .sort((a, b) => b.currentStock - a.currentStock)[0];
-                            if (!donor) return toast.error("No other hospital stocks this medicine.");
+                            if (!donor) {
+                              toast.error("No other hospital stocks this medicine.");
+                              return;
+                            }
                             addTransfer({
                               fromHospitalId: donor.hospitalId,
                               toHospitalId: i.hospitalId,

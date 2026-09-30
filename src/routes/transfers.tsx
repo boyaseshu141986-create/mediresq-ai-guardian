@@ -72,8 +72,14 @@ function TransfersPage() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.from === form.to) return toast.error("Source and destination must differ.");
-    if (!Number(form.quantity)) return toast.error("Enter a valid quantity.");
+    if (form.from === form.to) {
+      toast.error("Source and destination must differ.");
+      return;
+    }
+    if (!Number(form.quantity)) {
+      toast.error("Enter a valid quantity.");
+      return;
+    }
     addTransfer({
       fromHospitalId: form.from,
       toHospitalId: form.to,

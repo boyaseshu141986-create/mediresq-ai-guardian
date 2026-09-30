@@ -50,8 +50,8 @@ export const Route = createFileRoute("/predictions")({
 
 function PredictionsPage() {
   const { items, emergencyMultiplier, addTransfer } = useStore();
-  const [selectedId, setSelectedId] = useState(
-    () => [...items].sort((a, b) => b.risk.riskScore - a.risk.riskScore)[0]?.id ?? items[0]?.id,
+  const [selectedId, setSelectedId] = useState<string>(
+    () => [...items].sort((a, b) => b.risk.riskScore - a.risk.riskScore)[0]?.id ?? "",
   );
   const [series, setSeries] = useState<ForecastPoint[]>([]);
   const [loading, setLoading] = useState(false);
@@ -266,7 +266,10 @@ function PredictionsPage() {
                     const donor = items
                       .filter((x) => x.medicineId === item.medicineId && x.id !== item.id)
                       .sort((a, b) => b.currentStock - a.currentStock)[0];
-                    if (!donor) return toast.error("No other hospital stocks this medicine.");
+                    if (!donor) {
+                      toast.error("No other hospital stocks this medicine.");
+                      return;
+                    }
                     addTransfer({
                       fromHospitalId: donor.hospitalId,
                       toHospitalId: item.hospitalId,

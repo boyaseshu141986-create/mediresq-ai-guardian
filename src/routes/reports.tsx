@@ -97,13 +97,13 @@ function ReportsPage() {
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatCard
             label="Monthly Usage"
-            value={monthly[monthly.length - 1].usage.toLocaleString()}
+            value={(monthly[monthly.length - 1]?.usage ?? 0).toLocaleString()}
             hint="units, last month"
             icon={FileBarChart}
           />
           <StatCard
             label="Monthly Shortages"
-            value={monthly[monthly.length - 1].shortages}
+            value={monthly[monthly.length - 1]?.shortages ?? 0}
             icon={PackageX}
             tone="danger"
           />
@@ -116,7 +116,7 @@ function ReportsPage() {
           />
           <StatCard
             label="AI Prediction Accuracy"
-            value={`${accuracy[accuracy.length - 1].accuracy}%`}
+            value={`${accuracy[accuracy.length - 1]?.accuracy ?? 0}%`}
             icon={Target}
             tone="success"
           />
