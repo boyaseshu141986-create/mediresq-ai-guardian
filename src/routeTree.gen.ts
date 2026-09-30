@@ -16,6 +16,8 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as NetworkRouteImport } from './routes/network'
 import { Route as PredictionsRouteImport } from './routes/predictions'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SuppliersRouteImport } from './routes/suppliers'
 import { Route as TransfersRouteImport } from './routes/transfers'
 
@@ -54,6 +56,16 @@ const PredictionsRoute = PredictionsRouteImport.update({
   path: '/predictions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuppliersRoute = SuppliersRouteImport.update({
   id: '/suppliers',
   path: '/suppliers',
@@ -73,6 +85,8 @@ export interface FileRoutesByFullPath {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/suppliers': typeof SuppliersRoute
   '/transfers': typeof TransfersRoute
 }
@@ -84,6 +98,8 @@ export interface FileRoutesByTo {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/suppliers': typeof SuppliersRoute
   '/transfers': typeof TransfersRoute
 }
@@ -96,6 +112,8 @@ export interface FileRoutesById {
   '/inventory': typeof InventoryRoute
   '/network': typeof NetworkRoute
   '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/suppliers': typeof SuppliersRoute
   '/transfers': typeof TransfersRoute
 }
@@ -109,6 +127,8 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/network'
     | '/predictions'
+    | '/reports'
+    | '/settings'
     | '/suppliers'
     | '/transfers'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +140,8 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/network'
     | '/predictions'
+    | '/reports'
+    | '/settings'
     | '/suppliers'
     | '/transfers'
   id:
@@ -131,6 +153,8 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/network'
     | '/predictions'
+    | '/reports'
+    | '/settings'
     | '/suppliers'
     | '/transfers'
   fileRoutesById: FileRoutesById
@@ -143,6 +167,8 @@ export interface RootRouteChildren {
   InventoryRoute: typeof InventoryRoute
   NetworkRoute: typeof NetworkRoute
   PredictionsRoute: typeof PredictionsRoute
+  ReportsRoute: typeof ReportsRoute
+  SettingsRoute: typeof SettingsRoute
   SuppliersRoute: typeof SuppliersRoute
   TransfersRoute: typeof TransfersRoute
 }
@@ -198,6 +224,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PredictionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/suppliers': {
       id: '/suppliers'
       path: '/suppliers'
@@ -223,6 +263,8 @@ const rootRouteChildren: RootRouteChildren = {
   InventoryRoute: InventoryRoute,
   NetworkRoute: NetworkRoute,
   PredictionsRoute: PredictionsRoute,
+  ReportsRoute: ReportsRoute,
+  SettingsRoute: SettingsRoute,
   SuppliersRoute: SuppliersRoute,
   TransfersRoute: TransfersRoute,
 }
