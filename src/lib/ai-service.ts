@@ -29,8 +29,8 @@ export function buildForecastSeries(
     actual: h.unitsConsumed,
   }));
 
-  if (points.length) {
-    const last = points[points.length - 1];
+  const last = points[points.length - 1];
+  if (last && last.actual !== undefined) {
     last.predicted = last.actual;
     last.upper = last.actual;
     last.lower = last.actual;
@@ -164,6 +164,7 @@ export function askAssistant(question: string, items: EnrichedItem[]): string {
   }
 
   const top = byRisk[0];
+  if (!top) return "There is no inventory data loaded yet.";
   return `I couldn't match that to a supply-chain query. Here's the current headline: ${top.medicineName} at ${top.hospitalName} is ${top.risk.riskLevel} with a ${top.risk.shortageProbability}% shortage probability. Try asking about expiry, surplus stock, reorders or transfers.`;
 }
 
@@ -189,8 +190,9 @@ export function recommendTransfers(items: EnrichedItem[]): TransferRecommendatio
         (i) =>
           i.medicineId === need.medicineId &&
           i.hospitalId !== need.hospitalId &&
-          i.currentStock > i.minStock * 1.6 &&
-          (i.risk.riskLevel === "SAFE" || i.risk.riskLevel === "LOW"),
+          i.currentStock > i.minStock * 1.4 &&
+          i.risk.riskLevel !== "CRITICAL" &&
+          i.risk.riskLevel !== "HIGH",
       )
       .sort((a, b) => b.currentStock - a.currentStock)[0];
     if (!donor) return;

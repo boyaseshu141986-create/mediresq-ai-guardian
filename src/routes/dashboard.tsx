@@ -95,7 +95,8 @@ function Dashboard() {
       );
       return { date: d.toISOString().slice(5, 10), units: undefined, predicted: Math.round(value) };
     });
-    if (history.length) history[history.length - 1].predicted = history[history.length - 1].units;
+    const lastPoint = history[history.length - 1];
+    if (lastPoint) lastPoint.predicted = lastPoint.units;
     return { series: [...history, ...future], totalDaily };
   }, [consumptionTrend, items, emergencyMultiplier]);
 
