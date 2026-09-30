@@ -190,8 +190,9 @@ export function recommendTransfers(items: EnrichedItem[]): TransferRecommendatio
         (i) =>
           i.medicineId === need.medicineId &&
           i.hospitalId !== need.hospitalId &&
-          i.currentStock > i.minStock * 1.6 &&
-          (i.risk.riskLevel === "SAFE" || i.risk.riskLevel === "LOW"),
+          i.currentStock > i.minStock * 1.4 &&
+          i.risk.riskLevel !== "CRITICAL" &&
+          i.risk.riskLevel !== "HIGH",
       )
       .sort((a, b) => b.currentStock - a.currentStock)[0];
     if (!donor) return;
